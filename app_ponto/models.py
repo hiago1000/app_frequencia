@@ -40,11 +40,16 @@ class status(models.Model):
 
 class Frequencia(models.Model):
     data=models.DateField()
-    horario_entrada_1=models.TimeField(null=True)
-    horario_saida_1=models.TimeField(null=True)
-    horario_entrada_2=models.TimeField(null=True)
-    horario_saida_2=models.TimeField(null=True)
+    horario_entrada_1=models.TimeField(null=True,blank=True)
+    horario_saida_1=models.TimeField(null=True,blank=True)
+    horario_entrada_2=models.TimeField(null=True,blank=True)
+    horario_saida_2=models.TimeField(null=True,blank=True)
     justificativa=models.TextField(null=True,blank=True)
+    ipCom=models.CharField(max_length=30,null=True,blank=True)
+    fucionario=models.ForeignKey(Funcionario,on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__ (self):
+        return self.fucionario.nome + '---'+ str(self.data)
 
     def set_horario_entrada(self, horario):
         self.horario_entrada_1 = horario
